@@ -8,9 +8,9 @@ TI_IPHONE_DIR=TI_ASSETS_DIR + '/iphone'
 TI_BUILD= TI_IPHONE_DIR + '/builder.py'
 
 # Get APP parameters from current tiapp.xml
-APP_ID='au.com.dius.liveauction'
-APP_UUID='8E1AAE8B-20F0-4B1A-860F-BA9AEA38ADFF'
-APP_DIST_NAME="'Clency Coutet (YTXAAC4NK6)'"
+APP_ID='RUWUAW5Z24.com.diuscomputing.realiveauction'
+APP_UUID='F0D4603C-80F3-4D05-8108-9CDCBB5B30A8'
+APP_DIST_NAME="David Clarke"
 APP_NAME='LiveAuctions'
 
 ANDROID_HOME='/Users/davidclarke/bin/android-sdk'

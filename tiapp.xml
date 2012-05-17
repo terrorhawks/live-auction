@@ -8,7 +8,7 @@
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <id>HR4LVL7TKY.au.com.dius.liveauction</id>
+    <id>RUWUAW5Z24.com.diuscomputing.realiveauction</id>
     <name>rea-live-auction</name>
     <version>1.0</version>
     <publisher>davidclarke</publisher>

@@ -8,7 +8,7 @@ dius.liveAuction = function() {
     var _lastBid = 0;
     var _currentListingId;
     var _auctionAddressLabel;
-    var _hostname = "http://10.0.1.3:3000";
+    var _hostname = "http://10.112.202.83:3000";
     var _tabGroup = Titanium.UI.createTabGroup();
     var _font = "Arial"
     var _totalView;
@@ -16,9 +16,10 @@ dius.liveAuction = function() {
     var _indicator;
 
 
-    var success = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, 'ding.wav');
+    var success = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, 'ding.mp3');
     var sound_success = Titanium.Media.createSound({sound:success});
-
+    var sold = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, 'bong.mp3');
+    var sound_sold = Titanium.Media.createSound({sound:sold});
 //
 //    var db = {};
 //
@@ -83,10 +84,6 @@ dius.liveAuction = function() {
         xhr.send();
     }
 
-
-    function _createTabGroup() {
-        return _tabGroup;
-    }
 
     function _createTab(window, title, icon) {
         return Titanium.UI.createTab({
@@ -217,21 +214,6 @@ dius.liveAuction = function() {
         });
     }
 
-    function _createSlider() {
-        return Titanium.UI.createSlider({
-            min:0,
-            max:250000,
-            value:5000,
-            width:268,
-            height:11,
-            top:90,
-            leftTrackImage:'/images/slider_orangebar.png',
-            rightTrackImage:'/images/slider_lightbar.png',
-            thumbImage:'/images/slider_thumb.png'
-        });
-
-    }
-
     function _createButton(title, width, height, left, top, bgcolor) {
         return Titanium.UI.createButton({
             title:title,
@@ -274,17 +256,36 @@ dius.liveAuction = function() {
         _totalView.show();
     }
 
-    function _placeBid() {
-        _indicator.show();
-        Ti.API.debug("place bid");
+    function _sold() {
         var bidInc = new Number(_total) - _lastBid;
-        _ajaxRequest(_hostname + '/services/bid?bid_amount=' + _total + '000bid_inc=' + bidInc + '000&listing_id=' + _currentListingId, function() {
-            sound_success.play();
-            _totalView.color = "#ff0000";
-            _lastBid = new Number(_total);
-            _total = "";
-            _indicator.hide();
-        });
+        if (_total !== "" && bidInc >= 0) {
+            _indicator.show();
+            Ti.API.debug("sold");
+            _ajaxRequest(_hostname + '/services/bid?bid_amount=' + _total + '000sold=true&listing_id=' + _currentListingId, function() {
+                sound_sold.play();
+                _totalView.color = "#99CC00";
+                _lastBid = new Number(_total);
+                _indicator.hide();
+                _alertDialog("Sold for $" + _total + ',000');
+                _total = "";
+            });
+        }
+
+    }
+
+    function _placeBid() {
+        var bidInc = new Number(_total) - _lastBid;
+        if (_total !== "" && bidInc >= 0) {
+            _indicator.show();
+            Ti.API.debug("place bid");
+            _ajaxRequest(_hostname + '/services/bid?bid_amount=' + _total + '000bid_inc=' + bidInc + '000&listing_id=' + _currentListingId, function() {
+                sound_success.play();
+                _totalView.color = "#ff0000";
+                _lastBid = new Number(_total);
+                _total = "";
+                _indicator.hide();
+            });
+        }
     }
 
 // creates a 'pretty date' from a unix time stamp
@@ -371,9 +372,12 @@ dius.liveAuction = function() {
 
             _tabGroup.setActiveTab(0);
 
-            if (Ti.Platform.name != 'android') {
+            if (Ti.Platform.name !== 'android') {
                 _tabGroup.open({
                     transition:Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+                });
+                Ti.Gesture.addEventListener('shake', function(e) {
+                    _sold();
                 });
             }
             _tabGroup.open();
