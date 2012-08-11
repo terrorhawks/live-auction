@@ -8,13 +8,13 @@ dius.liveAuction = function() {
     var _lastBid = 0;
     var _currentListingId;
     var _auctionAddressLabel;
-    var _hostname = "http://10.112.202.83:3000";
+    //var _hostname = "http://customer-platform.cs-dave.vpc.realestate.com.au/";
+    var _hostname = "http://growing-rain-4226.herokuapp.com/";
     var _tabGroup = Titanium.UI.createTabGroup();
     var _font = "Arial"
     var _totalView;
     var _winBS, _winAuction;
     var _indicator;
-
 
     var success = Titanium.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, 'ding.mp3');
     var sound_success = Titanium.Media.createSound({sound:success});
@@ -60,7 +60,7 @@ dius.liveAuction = function() {
     function _registerFailedCallback(e) {
         Ti.API.debug(e.error);
         _indicator.hide();
-        _alertDialog("We're having problems..", "Failed to access REA, please try again later " + e.error);
+        _alertDialog("We're having problems..", "Failed to access server, please try again later " + e.error);
     }
 
     function _ajaxRequest(url, callback) {
@@ -68,12 +68,15 @@ dius.liveAuction = function() {
             onload : function(e) {
                 var parsedResponse = JSON.parse(this.responseText);
                 //Ti.API.debug(parsedResponse);
-                Ti.API.debug("_ajaxRequest.onload - Jenkins called");
+                Ti.API.debug("_ajaxRequest.onload");
                 callback(parsedResponse);
                 //do something
             },
-            onerror : _registerFailedCallback,
-            timeout : 10000
+            onerror : function (e) {
+              _registerFailedCallback(e);
+              callback(); 
+            },
+            timeout : 30000
         });
 
 
@@ -117,18 +120,19 @@ dius.liveAuction = function() {
     function _createListingsView(listings) {
         var data = [];
 
-        Ti.API.debug("Creating listings " + listings + " view for total listings = " + listings.length);
+        Ti.API.info("Creating listings " + listings + " view for total listings = " + listings.length);
         Ti.API.info(listings);
 
         for (var c = 0; c < listings.listings.length; c++) {
 
-            var listing = listings.listings[c].listing;
+            var listing = listings.listings[c];
 
             var address = listing.street_address + ", " + listing.suburb;
             //var user = listing.user.screen_name;
             var listing_image = _hostname + listing.thumb;
-            var created_at = _prettyDate(listing.auction_date);
-            var bgcolor = (c % 2) == 0 ? '#000' : '#252525';
+            
+            var created_at = _prettyDate((new Date().getTime()/1000) + (Math.random()*1000 * Math.random()*10 ) );
+            var bgcolor = (c % 2) == 0 ? '#101010' : '#252525';
 
             var row = Ti.UI.createTableViewRow({hasChild:true,height:'auto',backgroundColor:bgcolor, borderStyle :'0'});
 
@@ -260,8 +264,9 @@ dius.liveAuction = function() {
         var bidInc = new Number(_total) - _lastBid;
         if (_total !== "" && bidInc >= 0) {
             _indicator.show();
-            Ti.API.debug("sold");
-            _ajaxRequest(_hostname + '/services/bid?bid_amount=' + _total + '000sold=true&listing_id=' + _currentListingId, function() {
+            url = _hostname + 'services/bid?bid_amount=' + _total + '000&bid_inc=' + bidInc + 'k&sold=true&listing_id=' + _currentListingId;
+            Ti.API.debug("sold " + url);
+            _ajaxRequest(url, function() {
                 sound_sold.play();
                 _totalView.color = "#99CC00";
                 _lastBid = new Number(_total);
@@ -277,8 +282,9 @@ dius.liveAuction = function() {
         var bidInc = new Number(_total) - _lastBid;
         if (_total !== "" && bidInc >= 0) {
             _indicator.show();
-            Ti.API.debug("place bid");
-            _ajaxRequest(_hostname + '/services/bid?bid_amount=' + _total + '000bid_inc=' + bidInc + '000&listing_id=' + _currentListingId, function() {
+            url = _hostname + 'services/bid?bid_amount=' + _total + '000&bid_inc=' + bidInc + 'k&listing_id=' + _currentListingId;
+            Ti.API.info("place bid " + url);
+            _ajaxRequest(url, function() {
                 sound_success.play();
                 _totalView.color = "#ff0000";
                 _lastBid = new Number(_total);
@@ -328,9 +334,34 @@ dius.liveAuction = function() {
             Titanium.UI.setBackgroundColor('#000');
             _winBS = _createWindow("Listings");
 
-            _ajaxRequest(_hostname + "/services/listings.json", function(listings) {
-                _winBS.add(_createListingsView(listings));
-            });
+            //_ajaxRequest(_hostname + "/services/listings.json", function(listings) {
+            //    _winBS.add(_createListingsView(listings));
+            //});
+            
+            listings = {
+                
+                    "listings": [
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"19 Hook Street", "thumb":"main(1).jpg"},
+                       {"id":1, "suburb":"Fitzroy, 3034 VIC","street_address":"59 Spencer Street", "thumb":"image13.jpg"},
+                       {"id":1, "suburb":"Carlton North, 3054 VIC","street_address":"69 Swan Street", "thumb":"image2.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"98/B Davis Road", "thumb":"image3.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"22 Beacon Way", "thumb":"main(1).jpg"},
+                       {"id":1, "suburb":"Fitzroy North, 3121 VIC","street_address":"67 Gutter Lane", "thumb":"image4.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"22B Nemoure Road", "thumb":"image5.jpg"},
+                       {"id":1, "suburb":"Carlton, 3121 VIC","street_address":"328 Catter Pass", "thumb":"image6.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"19 Hook Street", "thumb":"main(1).jpg"},
+                       {"id":1, "suburb":"Fitzroy, 3121 VIC","street_address":"59 Spencer Street", "thumb":"image7.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"69 Swan Street", "thumb":"image8.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"98/B Davis Road", "thumb":"image9.jpg"},
+                       {"id":1, "suburb":"Carlton, 3121 VIC","street_address":"19 Hook Street", "thumb":"main(1).jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"59 Spencer Street", "thumb":"image10.jpg"},
+                       {"id":1, "suburb":"Richmond, 3121 VIC","street_address":"69 Swan Street", "thumb":"image11.jpg"},
+                       {"id":1, "suburb":"Fitzroy, 3121 VIC","street_address":"98/B Davis Road", "thumb":"image12.jpg"}
+                    ]
+                
+            };
+            _winBS.add(_createListingsView(listings));
+
 
             _winAuction = _createWindow("Auction");
             _totalView = _createLabel("$0,000", 50, -300);
@@ -385,8 +416,7 @@ dius.liveAuction = function() {
         }
 
     };
-}
-    ();
+}();
 
 
 dius.liveAuction.init();

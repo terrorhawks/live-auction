@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <sdk-version>__MACOSX</sdk-version>
     <deployment-targets>
         <target device="mobileweb">false</target>
         <target device="iphone">true</target>
@@ -8,13 +7,14 @@
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <id>RUWUAW5Z24.com.diuscomputing.realiveauction</id>
-    <name>rea-live-auction</name>
+    <sdk-version>__MACOSX</sdk-version>
+    <id>com.dius.auctionapp</id>
+    <name>test</name>
     <version>1.0</version>
     <publisher>davidclarke</publisher>
-    <url>http://dius.com.au</url>
+    <url>http://</url>
     <description>not specified</description>
-    <copyright>2012 by David Clarke</copyright>
+    <copyright>2012 by davidclarke</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
@@ -23,8 +23,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>567fa92f-b603-4641-9bb5-ed2771412357</guid>
-    <property name="ti.android.threadstacksize" type="int">42000</property>
+    <guid>236ae5f6-bbe2-4de6-8734-6f8233ccd1f0</guid>
     <iphone>
         <orientations device="iphone">
             <orientation>Ti.UI.PORTRAIT</orientation>
@@ -37,4 +36,5 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <modules/>
 </ti:app>

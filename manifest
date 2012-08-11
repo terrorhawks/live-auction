@@ -1,8 +1,8 @@
-#appname:rea-live-auction
-#publisher:davidclarke
-#url:http://dius.com.au
-#image:appicon.png
-#appid:HR4LVL7TKY.au.com.dius.liveauction
-#desc:not specified
-#type:mobile
-#guid:567fa92f-b603-4641-9bb5-ed2771412357
+#appname: LiveAuctions
+#publisher: davidclarke
+#url: http://
+#image: appicon.png
+#appid: com.dius.auctionapp
+#desc: undefined
+#type: mobile
+#guid: 236ae5f6-bbe2-4de6-8734-6f8233ccd1f0
