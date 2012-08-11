@@ -1,0 +1,76 @@
+document.write('');
+
+try{
+rea_as = document.getElementsByTagName("script");
+overlay_calc_ad_call = rea_as[rea_as.length-1].src;
+
+overlay_calc_ad_call = overlay_calc_ad_call.replace("adj", "adi");
+overlay_calc_ad_call = overlay_calc_ad_call.replace(/sz\=[^;]*;/ig, "sz=[%SIZE%];");
+overlay_calc_ad_call = overlay_calc_ad_call.replace(/sect\=[^;]*;/ig, "sect=[%SECTION%];");
+overlay_calc_ad_call = overlay_calc_ad_call.replace(/rea.[^\/]*\//ig, "rea.custom/");
+}catch(e){}
+
+document.write('\n\n<!-- Template ID = 2594 Template Name = Banner Creative (Flash) -  In Page Multiples -->\n<!-- Copyright 2006 DoubleClick Inc., All rights reserved. -->\n');
+
+function DCFlash(id,pVM){
+var swf = "http://s0.2mdn.net/2346365/011712_rea_Premiere_mortgage_repayments_650x117.swf";
+var gif = "http://s0.2mdn.net/2346365/011712_rea_Premiere_mortgage_repayments_650x117.jpg";
+var minV = 9;
+var FWH = ' width="650" height="117" ';
+var url = escape("http://ad.au.doubleclick.net/6k%3Bh%3Dv8/3c78/3/0/%2a/x%3B236351372%3B0-0%3B1%3B47365896%3B34132-650/117%3B46154725/46171848/1%3Bu%3Dsect%2Asignaturedetails%21state%2AVic%21proptype%2Ahouse%21region%2Ainner_east_melbourne%21pcode%2A3142%21sub%2Atoorak%21price%2A5m%21agent%2AKAYSOU%21type%2Asales%21pos%2Awidecalc%3B%7Eaopt%3D2/1/9/2%3B%7Esscs%3D%3fhttp://ad.au.doubleclick.net/clk;252279117;76317873;r");
+var wmode = "opaque";
+var bg = "same as SWF";
+var dcallowscriptaccess = "always";
+
+var openWindow = "false";
+var winW = 650;
+var winH = 117;
+var winL = 0;
+var winT = 0;
+var serverPath = escape("http://cdn.vi.com.au/realestate.com.au.calculators.vi.com.au/v-2.2/au/com/vi/");
+var moviePath=swf.substring(0,swf.lastIndexOf("/"));
+var sm=new Array();
+sm[1] = "";
+sm[2] = "";
+sm[3] = "";
+sm[4] = "";
+sm[5] = "";
+
+var ct=new Array();
+ct[0]="";if(ct[0].substr(0,4)!="http"){ct[0]="";}         
+ct[1] = "";
+ct[2] = "";
+ct[3] = "";
+ct[4] = "";
+ct[5] = "";
+ct[6] = "";
+ct[7] = "";
+ct[8] = "";
+ct[9] = "";
+ct[10] = "";
+var calJS = "javascript:vicomauREACalculator({display:'overlay',nid:63,field_referrer:'buy',dataObj:{loanAmount:{value:200000},interestRate:{value:7.5},loanTerm:{value:30}}})";
+var fv='"clickTag='+url+'&clickTAG='+url+'&clicktag='+url+'&moviePath='+moviePath+'/'+'&moviepath='+moviePath+'/'+'&serverPath='+serverPath;
+for(i=1;i<sm.length;i++){if(sm[i]!=""){fv+="&submovie"+i+"="+escape(sm[i]);}}
+for(i=1;i<ct.length;i++){if(ct[i]!=""){if(ct[i].indexOf("http")==0){x=escape("http://ad.au.doubleclick.net/6k%3Bh%3Dv8/3c78/3/0/%2a/x%3B236351372%3B0-0%3B1%3B47365896%3B34132-650/117%3B46154725/46171848/1%3Bu%3Dsect%2Asignaturedetails%21state%2AVic%21proptype%2Ahouse%21region%2Ainner_east_melbourne%21pcode%2A3142%21sub%2Atoorak%21price%2A5m%21agent%2AKAYSOU%21type%2Asales%21pos%2Awidecalc%3B%7Eaopt%3D2/1/9/2%3B%7Esscs%3D%3f"+ct[i]);}else{x=escape(ct[i]);}fv+="&clickTag"+i+"="+x+"&clickTAG"+i+"="+x+"&clicktag"+i+"="+x;}}
+fv+='"';
+var bgo=(bg=="same as SWF")?"":'<param name="bgcolor" value="#'+bg+'">';
+var bge=(bg=="same as SWF")?"":' bgcolor="#'+bg+'"';
+function FSWin(){if((openWindow=="false")&&(id=="DCF0"))alert('openWindow is wrong.');if((openWindow=="center")&&window.screen){winL=Math.floor((screen.availWidth-winW)/2);winT=Math.floor((screen.availHeight-winH)/2);}window.open(unescape(url),id,"width="+winW+",height="+winH+",top="+winT+",left="+winL+",status=no,toolbar=no,menubar=no,location=no");}this.FSWin = FSWin;
+ua=navigator.userAgent;
+if(minV<=pVM&&(openWindow=="false"||(ua.indexOf("Mac")<0&&ua.indexOf("Opera")<0))){
+	var adcode='<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="'+id+'"'+FWH+'>'+
+		'<param name="movie" value="'+swf+'"><param name="flashvars" value='+fv+'><param name="quality" value="high"><param name="wmode" value="'+wmode+'"><param name="base" value="'+swf.substring(0,swf.lastIndexOf("/"))+'"><PARAM NAME="AllowScriptAccess" VALUE="'+dcallowscriptaccess+'">'+bgo+
+		'<embed src="'+swf+'" flashvars='+fv+bge+FWH+' type="application/x-shockwave-flash" quality="high" swliveconnect="true" wmode="'+wmode+'" name="'+id+'" base="'+swf.substring(0,swf.lastIndexOf("/"))+'" AllowScriptAccess="'+dcallowscriptaccess+'"></embed></object>';
+  document.write(adcode);
+}else{
+	document.write('<a onClick="'+calJS+'"><img src="'+gif+'"'+FWH+'border="0" alt="" galleryimg="no"></a>');
+}}
+var pVM=0;var DCid=(isNaN("236351372"))?"DCF2":"DCF236351372";
+if(navigator.plugins && navigator.mimeTypes.length){
+  var x=navigator.plugins["Shockwave Flash"];if(x && x.description){var pVF=x.description;var y=pVF.indexOf("Flash ")+6;pVM=pVF.substring(y,pVF.indexOf(".",y));}}
+else if (window.ActiveXObject && window.execScript){
+  window.execScript('on error resume next\npVM=2\ndo\npVM=pVM+1\nset swControl = CreateObject("ShockwaveFlash.ShockwaveFlash."&pVM)\nloop while Err = 0\nOn Error Resume Next\npVM=pVM-1\nSub '+DCid+'_FSCommand(ByVal command, ByVal args)\nCall '+DCid+'_DoFSCommand(command, args)\nEnd Sub\n',"VBScript");}
+eval("function "+DCid+"_DoFSCommand(c,a){if(c=='openWindow')o"+DCid+".FSWin();}o"+DCid+"=new DCFlash('"+DCid+"',pVM);");
+//-->
+
+document.write('\n<noscript><a target=\"_blank\" href=\"http://ad.au.doubleclick.net/6k%3Bh%3Dv8/3c78/3/0/%2a/x%3B236351372%3B0-0%3B1%3B47365896%3B34132-650/117%3B46154725/46171848/1%3Bu%3Dsect%2Asignaturedetails%21state%2AVic%21proptype%2Ahouse%21region%2Ainner_east_melbourne%21pcode%2A3142%21sub%2Atoorak%21price%2A5m%21agent%2AKAYSOU%21type%2Asales%21pos%2Awidecalc%3B%7Eaopt%3D2/1/9/2%3B%7Esscs%3D%3fhttp://ad.au.doubleclick.net/clk;252279117;76317873;r\"><img src=\"http://s0.2mdn.net/2346365/011712_rea_Premiere_mortgage_repayments_650x117.jpg\" width=\"468\" height=\"60\" border=\"0\" alt=\"\" galleryimg=\"no\"></a></noscript>\n');
